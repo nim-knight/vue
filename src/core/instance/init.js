@@ -17,7 +17,11 @@ export function initMixin (Vue: Class<Component>) {
     const vm: Component = this
     // a uid
     vm._uid = uid++
-
+    
+    /**
+     * 提供性能追踪功能相关支持
+     * 原理参见：https://developer.mozilla.org/en-US/docs/Web/API/Performance
+     */
     let startTag, endTag
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
@@ -29,6 +33,8 @@ export function initMixin (Vue: Class<Component>) {
     // a flag to avoid this being observed
     vm._isVue = true
     // merge options
+    // 合并配置项
+    // 组件实例 和 根实例的 options 来源不同
     if (options && options._isComponent) {
       // optimize internal component instantiation
       // since dynamic options merging is pretty slow, and none of the
